@@ -152,6 +152,7 @@
     <Compile Include="Configuration\EmailService.cs" />
     <Compile Include="Configuration\SmsService.cs" />
     <Compile Include="Context\ApplicationDbContext.cs" />
+    <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="Model\AddPhoneNumber.cs" />
     <Compile Include="Model\ApplicationCookieIdentityValidator.cs" />
     <Compile Include="Model\ApplicationUser.cs" />

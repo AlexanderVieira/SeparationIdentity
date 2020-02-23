@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS.IdentitySeparation.Appli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AS.IdentitySeparation.Presentation.MVC", "src\Presentation\AS.IdentitySeparation.Presentation.MVC\AS.IdentitySeparation.Presentation.MVC.csproj", "{17F74B50-AEAB-446D-8F53-651CB5C69442}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1.1.Sqlite", "4.1.1.Sqlite", "{539C752D-4515-459F-B146-DF57AC9B53FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,7 @@ Global
 		{BA3776A2-13E3-4E89-BCBD-B5408267F3EC} = {D22D17C8-B54D-40F1-90E8-092A3F2AEE8C}
 		{57F68FE6-DF36-496F-B4A9-50374A85819A} = {919E82D0-481F-44F7-904B-32E2D34F8975}
 		{17F74B50-AEAB-446D-8F53-651CB5C69442} = {258810EA-A96F-44F9-B25A-1390CF363D75}
+		{539C752D-4515-459F-B146-DF57AC9B53FA} = {905B2C5D-60F7-4572-8DA3-A5E6DA41B135}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {72D05893-AE94-4C21-A806-19472599B421}
