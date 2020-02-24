@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // As informações gerais sobre um assembly são controladas por
 // conjunto de atributos. Altere estes valores de atributo para modificar as informações
 // associada a um assembly.
-[assembly: AssemblyTitle("AS.IdentitySeparation.Infra.Data")]
+[assembly: AssemblyTitle("AS.IdentitySeparation.Infra.Data.Sqlite")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("AS.IdentitySeparation.Infra.Data")]
+[assembly: AssemblyProduct("AS.IdentitySeparation.Infra.Data.Sqlite")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // O GUID a seguir será destinado à ID de typelib se este projeto for exposto para COM
-[assembly: Guid("45c6e39c-6a4f-4c46-bc36-6f9c94797fbf")]
+[assembly: Guid("9d5dd734-211e-45d5-9b23-4269188beef7")]
 
 // As informações da versão de um assembly consistem nos quatro valores a seguir:
 //
