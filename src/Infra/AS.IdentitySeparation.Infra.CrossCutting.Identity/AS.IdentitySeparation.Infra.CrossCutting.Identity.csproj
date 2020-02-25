@@ -282,13 +282,16 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ApplicationOAuthProvider.cs" />
     <Compile Include="Configuration\ApplicationRoleManager.cs" />
     <Compile Include="Configuration\ApplicationSignInManager.cs" />
     <Compile Include="Configuration\ApplicationUserManager.cs" />
     <Compile Include="Configuration\EmailService.cs" />
     <Compile Include="Configuration\SmsService.cs" />
     <Compile Include="Context\ApplicationDbContext.cs" />
+    <Compile Include="Filters\AccessTokenGeneration.cs" />
     <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
+    <Compile Include="Filters\CookieAuthentication.cs" />
     <Compile Include="Migrations\202002240156017_Inicial.cs" />
     <Compile Include="Migrations\202002240156017_Inicial.designer.cs">
       <DependentUpon>202002240156017_Inicial.cs</DependentUpon>

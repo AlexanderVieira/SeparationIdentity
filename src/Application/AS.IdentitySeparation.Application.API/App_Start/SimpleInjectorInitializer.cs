@@ -2,10 +2,8 @@
 using AS.IdentitySeparation.Infra.CrossCutting.IoC;
 using Microsoft.Owin;
 using SimpleInjector;
-using SimpleInjector.Advanced;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.WebApi;
-using System.Web;
 using System.Web.Http;
 using WebActivatorEx;
 
@@ -26,11 +24,12 @@ namespace AS.IdentitySeparation.Application.API.App_Start
             // Feito fora da camada de IoC para não levar o System.Web para fora
             container.RegisterPerWebRequest(() =>
             {
-                if (HttpContext.Current != null && HttpContext.Current.Items["owin.Environment"] == null && container.IsVerifying())
-                {
-                    return new OwinContext().Authentication;
-                }
-                return HttpContext.Current.GetOwinContext().Authentication;
+                //if (HttpContext.Current != null && HttpContext.Current.Items["owin.Environment"] == null && container.IsVerifying())
+                //{
+                //    return new OwinContext().Authentication;
+                //}
+                //return HttpContext.Current.GetOwinContext().Authentication;
+                return new OwinContext().Authentication;
 
             });
 

@@ -104,10 +104,6 @@
       <Project>{6ac582f3-c0a3-4f93-98e0-529ae37189f4}</Project>
       <Name>AS.IdentitySeparation.Infra.CrossCutting.Identity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\AS.IdentitySeparation.Infra.Data\AS.IdentitySeparation.Infra.Data.csproj">
-      <Project>{45c6e39c-6a4f-4c46-bc36-6f9c94797fbf}</Project>
-      <Name>AS.IdentitySeparation.Infra.Data</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

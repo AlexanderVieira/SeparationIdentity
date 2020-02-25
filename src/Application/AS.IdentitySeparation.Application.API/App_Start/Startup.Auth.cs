@@ -1,8 +1,7 @@
 ﻿using AS.IdentitySeparation.Infra.CrossCutting.Identity.Configuration;
-using AS.IdentitySeparation.Infra.CrossCutting.Identity.Model;
+using AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Facebook;
 using Owin;
 using System;
@@ -13,7 +12,7 @@ namespace AS.IdentitySeparation.Application.API.App_Start
 {
     public partial class Startup
     {
-        private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
+        private const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";        
 
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
@@ -29,25 +28,31 @@ namespace AS.IdentitySeparation.Application.API.App_Start
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            // Configure the sign in cookie
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
-                Provider = new CookieAuthenticationProvider
-                {
-                    // Enables the application to validate the security stamp when the user logs in.
-                    // This is a security feature which is used when you change a password or add an external login to your account.  
+            // Configure the sign in cookie            
 
-                    //OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
-                    //    validateInterval: TimeSpan.FromMinutes(30),
-                    //    regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+            //    LoginPath = new PathString("/Account/Login"),
+            //    Provider = new CookieAuthenticationProvider
+            //    {
+            //        // Enables the application to validate the security stamp when the user logs in.
+            //        // This is a security feature which is used when you change a password or add an external login to your account.  
 
-                    OnValidateIdentity = ApplicationCookieIdentityValidator.OnValidateIdentity(
-                       validateInterval: TimeSpan.FromMinutes(0),
-                       regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
-                }
-            });
+            //        //OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
+            //        //    validateInterval: TimeSpan.FromMinutes(30),
+            //        //    regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+
+            //        OnValidateIdentity = ApplicationCookieIdentityValidator.OnValidateIdentity(
+            //           validateInterval: TimeSpan.FromMinutes(0),
+            //           regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
+            //    }
+            //});
+            
+            //CookieAuthentication.EnableCookieAuthentication(app);
+
+            AccessTokenGeneration.EnableAccessTokenGeneration();
+
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -104,6 +109,6 @@ namespace AS.IdentitySeparation.Application.API.App_Start
 
             fao.SignInAsAuthenticationType = DefaultAuthenticationTypes.ExternalCookie;
             app.UseFacebookAuthentication(fao);
-        }
+        }                
     }
 }
