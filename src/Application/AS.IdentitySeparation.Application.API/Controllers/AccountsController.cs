@@ -1,10 +1,9 @@
 ﻿using AS.IdentitySeparation.Infra.CrossCutting.Identity.Configuration;
+using AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters;
 using AS.IdentitySeparation.Infra.CrossCutting.Identity.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using System;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 
@@ -23,7 +22,7 @@ namespace AS.IdentitySeparation.Application.API.Controllers
             _AppUserManager = AppUserManager;
             _AppSignInManager = AppSignInManager;
         }
-
+        
         [HttpPost]
         [AllowAnonymous]
         [Route("Register")]
@@ -49,7 +48,7 @@ namespace AS.IdentitySeparation.Application.API.Controllers
                 //var callbackUrl = new Uri(@"http://localhost:49609/accounts/ConfirmEmail?userId=" + user.Id + "&code=" + encodedCode);
                 //await _AppUserManager.SendEmailAsync(user.Id, "Confirme sua conta.", "Por favor confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
                 await _AppSignInManager.SignInAsync(user, false, false);
-                return Ok();
+                return Ok(TokenManager.GenerateToken(user.Email));
             }
             
             return GetErrorResult(result);
@@ -57,13 +56,14 @@ namespace AS.IdentitySeparation.Application.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [Route("Login")]
         public async Task<IHttpActionResult> Login(Login loginUser)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);            
 
             var result = await _AppSignInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
 
-            if (result.Equals("Succeeded")) return Ok();
+            if (result.ToString().Equals("Success")) return Ok(TokenManager.GenerateToken(loginUser.Email));
 
             return BadRequest("Usuário ou senha inválidos.");
            

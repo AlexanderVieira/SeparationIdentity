@@ -49,9 +49,9 @@ namespace AS.IdentitySeparation.Application.API.App_Start
             //    }
             //});
             
-            //CookieAuthentication.EnableCookieAuthentication(app);
+            CookieAuthentication.EnableCookieAuthentication(app);
 
-            AccessTokenGeneration.EnableAccessTokenGeneration();
+            //AccessTokenGeneration.EnableAccessTokenGeneration();
 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 

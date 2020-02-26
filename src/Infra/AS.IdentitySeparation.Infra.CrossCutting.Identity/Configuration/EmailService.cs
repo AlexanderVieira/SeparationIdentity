@@ -23,7 +23,7 @@ namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Configuration
         {
             var myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
-            myMessage.From = new MailAddress("contato@varcalsys.com.br", "Admin do Portal");
+            myMessage.From = new MailAddress("testes.alexandersilva@gmail.com", "Admin do Portal");
             myMessage.Subject = message.Subject;
             myMessage.Text = message.Body;
             myMessage.Html = message.Body;
@@ -53,13 +53,13 @@ namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Configuration
                 var text = HttpUtility.HtmlEncode(message.Body);
 
                 var msg = new MailMessage();
-                msg.From = new MailAddress("contato@varcalsys.com.br", "Admin do Portal");
+                msg.From = new MailAddress("testes.alexandersilva@gmail.com", "Admin do Portal");
                 msg.To.Add(new MailAddress(message.Destination));
                 msg.Subject = message.Subject;
                 msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Plain));
                 msg.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(text, null, MediaTypeNames.Text.Html));
 
-                var smtpClient = new SmtpClient("webmail.varcalsys.com.br", Convert.ToInt32(587));
+                var smtpClient = new SmtpClient("smtp.gmail.com", Convert.ToInt32(587));
                 var credentials = new NetworkCredential(ConfigurationManager.AppSettings["ContaDeEmail"],
                     ConfigurationManager.AppSettings["SenhaEmail"]);
                 smtpClient.Credentials = credentials;
