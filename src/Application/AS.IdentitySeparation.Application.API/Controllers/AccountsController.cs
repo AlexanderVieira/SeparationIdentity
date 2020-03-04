@@ -51,10 +51,10 @@ namespace AS.IdentitySeparation.Application.API.Controllers
             {
                 var code = await _AppUserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                 var encodedCode = HttpUtility.UrlEncode(code);
-                var callbackUrl = new Uri(@"http://localhost:62097/Accounts/ConfirmEmail?userId=" + user.Id + "&code=" + encodedCode);
+                var callbackUrl = new Uri(@"http://localhost:62097/Api/Accounts/ConfirmEmail?userId=" + user.Id + "&code=" + encodedCode);
                 await _AppUserManager.SendEmailAsync(user.Id, "Confirme sua conta.", "Por favor confirme sua conta clicando <a href=\"" + callbackUrl + "\">aqui</a>");
                 await _AppSignInManager.SignInAsync(user, false, false);
-                return Ok(TokenManager.GenerateToken(user.Email));
+                return Ok(callbackUrl);
             }
             
             return GetErrorResult(result);
@@ -143,7 +143,7 @@ namespace AS.IdentitySeparation.Application.API.Controllers
                 }
 
                 var code = await _AppUserManager.GeneratePasswordResetTokenAsync(user.Id);                
-                var callbackUrl = new Uri(@"http://localhost:62097/Accounts/ResetPassword?userId=" + user.Id + "&code=" + code + "&protocol=" + Request.RequestUri.Scheme);
+                var callbackUrl = new Uri(@"http://localhost:62097/Api/Accounts/ResetPassword?userId=" + user.Id + "&code=" + code + "&protocol=" + Request.RequestUri.Scheme);
                 await _AppUserManager.SendEmailAsync(user.Id, "Esqueci minha senha", "Por favor altere sua senha clicando aqui: <a href='" + callbackUrl + "'></a>");
                 //var link = callbackUrl;
                 //var status = "DEMO: Caso o link não chegue: ";
@@ -155,7 +155,7 @@ namespace AS.IdentitySeparation.Application.API.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("ForgotPassword")]
+        [Route("ResetPassword")]
         public async Task<IHttpActionResult> ResetPassword(ResetPassword model)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
