@@ -31,7 +31,19 @@ namespace AS.IdentitySeparation.Application.API.Controllers
             _AppUserManager = AppUserManager;
             _AppSignInManager = AppSignInManager;
         }
-        
+                
+        [HttpGet]
+        [Route("LoggedUser")]
+        public async Task<IHttpActionResult> LoggedUser()
+        {
+            var user = await _AppUserManager.FindByIdAsync(User.Identity.GetUserId());
+            if (user == null)
+            {
+                return Ok();
+            }
+            return Ok(user);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         [Route("Register")]
@@ -142,13 +154,15 @@ namespace AS.IdentitySeparation.Application.API.Controllers
                     return BadRequest("ForgotPasswordConfirmation");
                 }
 
-                var code = await _AppUserManager.GeneratePasswordResetTokenAsync(user.Id);                
-                var callbackUrl = new Uri(@"http://localhost:62097/Api/Accounts/ResetPassword?userId=" + user.Id + "&code=" + code + "&protocol=" + Request.RequestUri.Scheme);
+                var code = await _AppUserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var encodedCode = HttpUtility.UrlEncode(code);
+                //var callbackUrl = new Uri(@"http://localhost:62097/Api/Accounts/ResetPassword?userId=" + user.Id + "&code=" + code + "&protocol=" + Request.RequestUri.Scheme);
+                var callbackUrl = new Uri(@"http://localhost:62097/Api/Accounts/ResetPassword?userId=" + user.Id + "&code=" + encodedCode);
                 await _AppUserManager.SendEmailAsync(user.Id, "Esqueci minha senha", "Por favor altere sua senha clicando aqui: <a href='" + callbackUrl + "'></a>");
                 //var link = callbackUrl;
                 //var status = "DEMO: Caso o link não chegue: ";
                 //var linkAcesso = callbackUrl;
-                return Ok("ForgotPasswordConfirmation");
+                return Ok(callbackUrl);
             }            
             return BadRequest(ModelState);
         }
