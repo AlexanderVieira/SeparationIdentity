@@ -1,14 +1,12 @@
-﻿using System;
+﻿using AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace AS.IdentitySeparation.Application.API.Controllers
 {
     public class ValuesController : ApiController
     {
+        [TokenAuthenticate]
         // GET api/values
         public IEnumerable<string> Get()
         {

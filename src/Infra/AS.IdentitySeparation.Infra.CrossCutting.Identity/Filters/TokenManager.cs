@@ -2,17 +2,19 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Configuration;
+using System.Threading.Tasks;
 
 namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters
 {
     public class TokenManager
-    {
-        private static string Secret = Guid.NewGuid().ToString();
+    {        
+        private static readonly string Secret = ConfigurationManager.AppSettings["SecretKey"];
 
         public static string GenerateToken(string userName)
-        {
-            var secretNew = Secret.Replace("-", "");
-            byte[] key = Convert.FromBase64String(secretNew);
+        {            
+            //var secretNew = Secret.Replace("-", "");            
+            byte[] key = Convert.FromBase64String(Secret);
             var securityKey = new SymmetricSecurityKey(key);
             var descriptor = new SecurityTokenDescriptor
             {
@@ -26,27 +28,28 @@ namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters
             return handler.WriteToken(token);
         }
 
-        public static ClaimsPrincipal GetPrincipal(string token)
+        public static Task<ClaimsPrincipal> GetPrincipal(string token)
         {
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var jwtToken = (JwtSecurityToken)tokenHandler.ReadToken(token);
-                if (jwtToken == null) return null;
+                if (jwtToken == null) return null;                
                 byte[] key = Convert.FromBase64String(Secret);
                 var parameters = new TokenValidationParameters
                 {
                     RequireExpirationTime = true,
                     ValidateIssuer = false,
-                    ValidateAudience = false,
+                    ValidateAudience = false,                    
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
                 SecurityToken securityToken;
                 var principal = tokenHandler.ValidateToken(token, parameters, out securityToken);
-                return principal;
+                return Task.FromResult(principal);                
             }
-            catch
+            catch(Exception ex)
             {
+                var result = ex.Message;
                 return null;                
             }
         }

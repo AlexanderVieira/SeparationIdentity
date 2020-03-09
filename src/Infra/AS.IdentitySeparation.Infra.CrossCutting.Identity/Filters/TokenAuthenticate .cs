@@ -8,7 +8,7 @@ using System.Web.Http.Results;
 
 namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters
 {
-    public class CustomAuthenticationFilter : AuthorizeAttribute, IAuthenticationFilter
+    public class TokenAuthenticate  : AuthorizeAttribute, IAuthenticationFilter
     {
         public override bool AllowMultiple
         {
@@ -17,7 +17,7 @@ namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters
 
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
-            var authParameter = string.Empty;
+            //var authParameter = string.Empty;
             var request = context.Request;
             var authorization = request.Headers.Authorization;
 
@@ -39,7 +39,7 @@ namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters
                 return;
             }
 
-            context.Principal = TokenManager.GetPrincipal(authorization.Parameter);
+            context.Principal = await TokenManager.GetPrincipal(authorization.Parameter);
         }
 
         public async Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
@@ -47,7 +47,7 @@ namespace AS.IdentitySeparation.Infra.CrossCutting.Identity.Filters
             var result = await context.Result.ExecuteAsync(cancellationToken);
             if (true)
             {
-                result.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue("Basic", "realm=localhost"));
+                result.Headers.WwwAuthenticate.Add(new AuthenticationHeaderValue("Bearer", "realm=localhost"));
             }
 
             context.Result = new ResponseMessageResult(result);

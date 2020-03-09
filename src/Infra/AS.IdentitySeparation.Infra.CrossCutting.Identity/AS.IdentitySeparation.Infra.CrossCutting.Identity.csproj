@@ -324,7 +324,7 @@
     <Compile Include="Filters\AuthenticationFailureResult.cs" />
     <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="Filters\CookieAuthentication.cs" />
-    <Compile Include="Filters\CustomAuthenticationFilter.cs" />
+    <Compile Include="Filters\TokenAuthenticate .cs" />
     <Compile Include="Filters\TokenManager.cs" />
     <Compile Include="Migrations\202002240156017_Inicial.cs" />
     <Compile Include="Migrations\202002240156017_Inicial.designer.cs">
